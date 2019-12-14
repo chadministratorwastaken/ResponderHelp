@@ -22,7 +22,7 @@ args = parser.parse_args()
 #input("Press CTRL-C to break or ENTER to continue...")
 cwd=os.getcwd()
 
-def main(cflag, tflag, oflag, pflag, lflag, qflag):
+def main(cflag, tflag, oflag, pflag, qflag):
 
     # Set hash type search string
     if tflag == 'n1':
@@ -52,8 +52,9 @@ def main(cflag, tflag, oflag, pflag, lflag, qflag):
     if cflag != '':
         moveto = pflag + '/' + cflag
         os.mkdir(moveto)
-        for logfile in logfiles:
-            shutil.move(logfile, moveto)
+        for filename in os.listdir(pflag):
+            if filename.endswith(".txt"):
+                shutil.move(filename, moveto)
         return
 
     # Get every unique username from the data
@@ -96,4 +97,4 @@ def main(cflag, tflag, oflag, pflag, lflag, qflag):
         print("\nYou have %s unique user hashes!" % len(rhashes))
 
 if __name__ == '__main__':
-    main(args.clean, args.hashtype, args.output, args.logpath, args.listtype, args.quiet)
+    main(args.clean, args.hashtype, args.output, args.logpath, args.quiet)
